@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Mic, MicOff, Activity } from 'lucide-react';
+import { Mic, Activity } from 'lucide-react';
 
 const VoiceControls = ({ state, onStartListening }) => {
     const isListening = state === 'listening';
@@ -16,7 +16,7 @@ const VoiceControls = ({ state, onStartListening }) => {
                             key={i}
                             animate={{
                                 height: [10, Math.random() * 40 + 10, 10],
-                                backgroundColor: isListening ? '#00f3ff' : '#bc13fe'
+                                opacity: isListening ? 1 : 0.5
                             }}
                             transition={{
                                 duration: 0.5,
@@ -24,19 +24,19 @@ const VoiceControls = ({ state, onStartListening }) => {
                                 delay: i * 0.05,
                                 ease: "easeInOut"
                             }}
-                            className="w-1 rounded-full bg-cyber-blue/50"
+                            className="w-1 rounded-full bg-white"
                         />
                     ))
                 )}
                 {state === 'idle' && (
-                    <div className="text-gray-400 text-sm font-light tracking-widest uppercase">
+                    <div className="text-gray-500 text-sm font-light tracking-widest uppercase">
                         Tap Microphone to Start
                     </div>
                 )}
                 {isProcessing && (
-                    <div className="flex items-center gap-2 text-cyber-blue/80 font-mono text-sm animate-pulse">
+                    <div className="flex items-center gap-2 text-white/70 font-mono text-sm animate-pulse">
                         <Activity className="w-4 h-4" />
-                        <span>PROCESSING VOICE INPUT...</span>
+                        <span>PROCESSING...</span>
                     </div>
                 )}
             </div>
@@ -44,29 +44,27 @@ const VoiceControls = ({ state, onStartListening }) => {
             {/* Main Microphone Button */}
             <div className="relative group">
                 {/* Glow Effects */}
-                <div className={`absolute inset-0 rounded-full blur-xl transition-all duration-500 ${isListening ? 'bg-cyber-blue/60 scale-150' :
-                        isProcessing ? 'bg-white/40 scale-125' :
-                            isSpeaking ? 'bg-cyber-purple/60 scale-125' :
-                                'bg-cyber-blue/0 scale-100 group-hover:bg-cyber-blue/30 group-hover:scale-110'
+                <div className={`absolute inset-0 rounded-full blur-2xl transition-all duration-700 ${isListening ? 'bg-white/20 scale-150' :
+                    isProcessing ? 'bg-white/10 scale-125' :
+                        isSpeaking ? 'bg-white/10 scale-125' :
+                            'bg-transparent scale-100 group-hover:bg-white/5 group-hover:scale-110'
                     }`} />
 
                 <motion.button
                     onClick={onStartListening}
-                    disabled={state !== 'idle' && state !== 'speaking'} // Allow interrupting speaking? Maybe not for this simpler demo
+                    disabled={state !== 'idle' && state !== 'speaking'}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className={`relative z-10 w-20 h-20 rounded-full flex items-center justify-center border-2 transition-all duration-300 ${isListening ? 'bg-cyber-blue/20 border-cyber-blue text-cyber-blue shadow-[0_0_30px_rgba(0,243,255,0.4)]' :
-                            isProcessing ? 'bg-white/10 border-white/50 text-white animate-spin-slow' :
-                                isSpeaking ? 'bg-cyber-purple/20 border-cyber-purple text-cyber-purple' :
-                                    'bg-black/40 border-white/10 text-white hover:border-cyber-blue/50 hover:text-cyber-blue'
+                    className={`relative z-10 w-20 h-20 rounded-full flex items-center justify-center border transition-all duration-500 ${isListening ? 'bg-white text-black border-transparent shadow-[0_0_40px_rgba(255,255,255,0.3)]' :
+                        isProcessing ? 'bg-black/40 border-white/20 text-white/50' :
+                            isSpeaking ? 'bg-white/10 border-white/20 text-white' :
+                                'bg-black/40 border-white/10 text-white hover:border-white/30 hover:bg-white/5'
                         }`}
                 >
-                    {isListening ? (
-                        <Mic className="w-8 h-8 pointer-events-none" />
-                    ) : isProcessing ? (
+                    {isProcessing ? (
                         <div className="w-8 h-8 border-2 border-t-transparent border-white rounded-full animate-spin" />
                     ) : (
-                        <Mic className="w-8 h-8 pointer-events-none" />
+                        <Mic className={`w-8 h-8 pointer-events-none transition-colors duration-300 ${isListening ? 'text-black' : 'text-current'}`} />
                     )}
                 </motion.button>
 
@@ -74,29 +72,26 @@ const VoiceControls = ({ state, onStartListening }) => {
                 {isListening && (
                     <>
                         <motion.div
-                            initial={{ scale: 1, opacity: 0.8 }}
+                            initial={{ scale: 1, opacity: 0.5 }}
                             animate={{ scale: 2, opacity: 0 }}
                             transition={{ duration: 2, repeat: Infinity }}
-                            className="absolute inset-0 rounded-full border border-cyber-blue pointer-events-none"
+                            className="absolute inset-0 rounded-full border border-white/30 pointer-events-none"
                         />
                         <motion.div
-                            initial={{ scale: 1, opacity: 0.5 }}
+                            initial={{ scale: 1, opacity: 0.3 }}
                             animate={{ scale: 2.5, opacity: 0 }}
                             transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
-                            className="absolute inset-0 rounded-full border border-cyber-blue/50 pointer-events-none"
+                            className="absolute inset-0 rounded-full border border-white/10 pointer-events-none"
                         />
                     </>
                 )}
             </div>
 
             <div className="mt-8 text-center space-y-1">
-                <p className="text-xs text-gray-400 font-mono tracking-widest">
-                    STATUS: <span className={
-                        state === 'idle' ? 'text-gray-500' :
-                            state === 'listening' ? 'text-cyber-blue animate-pulse' :
-                                state === 'processing' ? 'text-white' :
-                                    'text-cyber-purple'
-                    }>{state.toUpperCase()}</span>
+                <p className="text-[10px] text-gray-600 font-mono tracking-[0.2em] uppercase">
+                    Status: <span className={state === 'idle' ? 'text-gray-500' : 'text-white'}>
+                        {state}
+                    </span>
                 </p>
             </div>
         </div>

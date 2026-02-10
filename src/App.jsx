@@ -11,22 +11,22 @@ function App() {
   return (
     <div className="min-h-screen w-full flex items-center justify-center p-4 md:p-8 bg-[#050511] relative overflow-hidden">
       {/* Ambient Background Effects */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyber-blue/20 rounded-full blur-[128px] pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-cyber-purple/20 rounded-full blur-[128px] pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-white/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 w-full h-[300px] bg-gradient-to-t from-black to-transparent pointer-events-none" />
 
       {/* Grid Pattern Overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
 
       <GlassCard className="w-full max-w-md md:max-w-lg h-[85vh] max-h-[800px] flex flex-col relative z-10 transition-all duration-700 ease-out border-opacity-30 border-white/10 shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)]">
         {/* Header */}
         <div className="flex items-center justify-between mb-6 px-2">
           <div className="flex items-center gap-2">
             <div className="relative">
-              <Sparkles className="w-5 h-5 text-cyber-blue" />
-              <div className="absolute inset-0 bg-cyber-blue blur-sm opacity-50" />
+              <Sparkles className="w-5 h-5 text-white/80" />
+              <div className="absolute inset-0 bg-white blur-sm opacity-20" />
             </div>
             <h1 className="text-xl font-bold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">
-              VOICE AI
+              Job Seeker Voice Bot
             </h1>
           </div>
           <button
@@ -56,7 +56,7 @@ function App() {
 
       {/* Build Status / Footer */}
       <div className="absolute bottom-4 left-0 right-0 text-center text-[10px] text-gray-600 font-mono">
-        SYSTEM STATUS: ONLINE | V.2.0.4
+        Made by Laeba
       </div>
     </div>
   );
